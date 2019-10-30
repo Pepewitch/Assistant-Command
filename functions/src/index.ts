@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions';
-import { WebhookClient } from 'dialogflow-fulfillment';
+import { WebhookClient, BasicCard, Button, Image } from 'dialogflow-fulfillment';
 
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 
@@ -10,7 +10,9 @@ export const dialogflowFirebaseFulfillment = functions.https.onRequest((request,
 		const {
 			parameters: { amount, target_name },
 		} = agent;
-		return agent.add(functions.config().scb.api_key);
+		return agent.add(
+			'Yeah, send to ' + target_name + ' ' + amount.amount + ' ' + amount.currency
+		);
 	};
 
 	let intentMap = new Map();
